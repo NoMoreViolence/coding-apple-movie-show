@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+// import './header.scss';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const HeaderDiv = styled.div`
   display: flex;
@@ -9,7 +11,7 @@ const HeaderDiv = styled.div`
   padding-right: 2rem;
   padding-left: 2rem;
 
-  > span {
+  > a {
     line-height: 2;
     font-size: 5rem;
     font-weight: bold;
@@ -27,7 +29,7 @@ class Header extends Component {
   render() {
     return (
       <HeaderDiv>
-        <span>{this.props.headerMessage}</span>
+        <Link to="/">{this.props.headerMessage}</Link>
       </HeaderDiv>
     );
   }

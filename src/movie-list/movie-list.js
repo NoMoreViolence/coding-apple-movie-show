@@ -73,9 +73,9 @@ const StyledDiv = styled.div`
       height: 100px;
       cursor: pointer;
       background-image: ${props =>
-        props.likeImage
-          ? `linear-gradient(rgba(245, 245, 245, 0), rgba(245, 245, 245, 0)), url(${props.likeImage})`
-          : ''};
+    props.likeImage
+      ? `linear-gradient(rgba(245, 245, 245, 0), rgba(245, 245, 245, 0)), url(${props.likeImage})`
+      : ''};
       background-position: 50% 50%;
       background-size: cover;
     }
@@ -83,11 +83,15 @@ const StyledDiv = styled.div`
 `;
 
 class MovieList extends React.Component {
-  domConfettiRefs = this.props.movieData.map(() => React.createRef());
+  domConfettiRefs = this.props.movieData.map(() => React.createRef()); // [dom, dom, dom, dom, dom]
 
   showParadise = idx => {
     confetti(this.domConfettiRefs[idx].current);
   };
+
+  goToSpecificMovie = name => {
+    this.props.history.push(`/${name}`);
+  }
 
   render() {
     const convertEnterToLine = someString => {
@@ -107,7 +111,7 @@ class MovieList extends React.Component {
       return lists.map((unit, idx) => {
         return (
           <StyledDiv key={idx} backgroundImage={unit.image} likeImage={'/images/like.svg'}>
-            <span className="title">{unit.movieName}</span>
+            <span className="title" onClick={() => this.goToSpecificMovie(unit.movieName)}>{unit.movieName}</span>
             <div className="genre">{showGenre(unit.genre)}</div>
             <span className="sub">{unit.releaseDate === null ? '미개봉' : `${unit.releaseDate} 개봉`}</span>
             {unit.releaseDate !== null && (
